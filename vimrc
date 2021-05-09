@@ -11,6 +11,47 @@ set hlsearch
 let g:airline#extensions#tabline#fnamemod = ':t'
 set guioptions=
 
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:coc_global_extensions = ['coc-tsserver']
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
+
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
 set hidden
 
 nmap <leader>z :NERDTreeToggle<cr>
@@ -22,8 +63,8 @@ noremap <C-l> <C-w>l
 
 " Setup some default ignores
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(swp|pyc|exe|so|dll|class|png|jpg|jpeg)$',
+  \ 'dir':  '\v[\/](node_modules|\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(swp|svg|pyc|exe|so|dll|class|png|jpg|jpeg)$',
 \}
 
 " Use the nearest .git directory as the cwd
@@ -55,6 +96,17 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
+
+nnoremap <silent> K :call CocAction('doHover')<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>do <Plug>(coc-codeaction)
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 
 " remap escame to kj
 inoremap kj <Esc>
